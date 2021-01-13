@@ -24,6 +24,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "dependencies": {
+    "downshift": "^6.0.15"
+  },
   "peerDependencies": {
     "react": ">=16"
   },

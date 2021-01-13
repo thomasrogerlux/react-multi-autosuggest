@@ -181,15 +181,15 @@ export const AutoSuggest = ({
         setInputItems([]);
       }
     }
-  }, [value, caretPosition, suggestions]);
+  }, [value, caretPosition, suggestions, suggestionWasSelected]);
 
   useEffect(() => {
     if (inputItems.length > 0 && !isOpen) {
       openMenu();
-    } else if (inputItems.length == 0) {
+    } else if (inputItems.length === 0) {
       closeMenu();
     }
-  }, [inputItems]);
+  }, [inputItems, closeMenu, openMenu, isOpen]);
 
   return (
     <div style={{ position: "relative", display: "inline-flex" }}>
