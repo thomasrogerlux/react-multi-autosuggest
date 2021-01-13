@@ -30,6 +30,28 @@ NoStyle.args = {
   onChange: () => {}
 };
 
+export const FullWidth = (args: AutoSuggestProps) => {
+  const [value, setValue] = useState("");
+  return (
+    <AutoSuggest
+      style={{ width: "100%" }}
+      inputStyle={{ width: "100%" }}
+      suggestions={args.suggestions}
+      value={value}
+      onChange={setValue}
+    />
+  );
+};
+
+FullWidth.args = {
+  suggestions: {
+    "@": ["Fouquets", "DunkinDonuts", "Walmart"],
+    "#": ["DinnerWithFriends", "BreakfastAtWork", "Grosseries"]
+  },
+  value: "",
+  onChange: () => {}
+};
+
 export const MaterialUI = (args: AutoSuggestProps) => {
   const [value, setValue] = useState("");
   return (

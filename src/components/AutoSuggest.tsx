@@ -33,7 +33,9 @@ export interface AutoSuggestProps {
     items: string[];
     highlightedIndex: number;
   }) => ReactNode;
-  fontStyles?: CSSProperties;
+  style?: CSSProperties;
+  fontStyle?: CSSProperties;
+  inputStyle?: CSSProperties;
 }
 
 export const AutoSuggest = ({
@@ -42,7 +44,9 @@ export const AutoSuggest = ({
   onChange,
   renderInput,
   renderList,
-  fontStyles
+  style,
+  fontStyle,
+  inputStyle
 }: AutoSuggestProps) => {
   const inputEl = useRef<HTMLInputElement>(null);
 
@@ -192,20 +196,22 @@ export const AutoSuggest = ({
   }, [inputItems, closeMenu, openMenu, isOpen]);
 
   return (
-    <div style={{ position: "relative", display: "inline-flex" }}>
-      <div {...getComboboxProps()}>
-        {!!renderInput ? (
-          renderInput({ getInputProps, ref: inputEl, value, onChange })
-        ) : (
-          <input
-            {...getInputProps({ ref: inputEl })}
-            value={value}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              onChange(e.target.value)
-            }
-          />
-        )}
-      </div>
+    <div
+      {...getComboboxProps()}
+      style={{ position: "relative", display: "inline-flex", ...style }}
+    >
+      {!!renderInput ? (
+        renderInput({ getInputProps, ref: inputEl, value, onChange })
+      ) : (
+        <input
+          {...getInputProps({ ref: inputEl })}
+          value={value}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            onChange(e.target.value)
+          }
+          style={inputStyle}
+        />
+      )}
       <div
         style={{
           display: "flex",
@@ -223,7 +229,7 @@ export const AutoSuggest = ({
             boxSizing: "border-box",
             minWidth: 0,
             marginRight: "-1rem",
-            ...fontStyles
+            ...fontStyle
           }}
         >
           {value.slice(0, caretPosition)}
@@ -269,7 +275,7 @@ export const AutoSuggest = ({
                     ...getItemStyles({
                       highlighted: highlightedIndex === index
                     }),
-                    ...fontStyles
+                    ...fontStyle
                   }}
                   {...getItemProps({ item, index })}
                   key={`${index}-${item}`}
