@@ -6,7 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { AutoSuggest, AutoSuggestProps } from "../src";
 
 export default {
-  title: "Autocomplete",
+  title: "AutoSuggest",
   component: AutoSuggest
 };
 

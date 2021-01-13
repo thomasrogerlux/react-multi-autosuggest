@@ -31,7 +31,7 @@ const Form = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Autocomplete
+      <AutoSuggest
         suggestions={{
           "@": ["John", "Lisa", "Matt"],
           "#": ["Outdoor", "Food", "Gaming"]
@@ -64,7 +64,7 @@ const Form = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Autocomplete
+      <AutoSuggest
         suggestions={{
           "@": ["John", "Lisa", "Matt"],
           "#": ["Outdoor", "Food", "Gaming"]
