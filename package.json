@@ -1,0 +1,48 @@
+{
+  "name": "react-multi-autosuggest",
+  "version": "1.0.0",
+  "description": "Customizable React autosuggest component supporting multiple suggestion lists",
+  "author": "Thomas Roger Lux <thomas@rogerlux.dev>",
+  "license": "MIT",
+  "repository": "git://github.com/thomasrogerlux/react-multi-autosuggest.git",
+  "main": "dist/index.js",
+  "module": "dist/react-multi-autosuggest.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@material-ui/core": "^4.11.2",
+    "@storybook/addon-essentials": "^6.1.14",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-links": "^6.1.14",
+    "@storybook/addons": "^6.1.14",
+    "@storybook/react": "^6.1.14",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "babel-loader": "^8.2.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-is": "^17.0.1",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3"
+  }
+}
