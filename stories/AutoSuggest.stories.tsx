@@ -6,7 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { AutoSuggest, AutoSuggestProps } from "../src";
 
 export default {
-  title: "Autocomplete",
+  title: "AutoSuggest",
   component: AutoSuggest
 };
 
@@ -22,6 +22,28 @@ export const NoStyle = (args: AutoSuggestProps) => {
 };
 
 NoStyle.args = {
+  suggestions: {
+    "@": ["Fouquets", "DunkinDonuts", "Walmart"],
+    "#": ["DinnerWithFriends", "BreakfastAtWork", "Grosseries"]
+  },
+  value: "",
+  onChange: () => {}
+};
+
+export const FullWidth = (args: AutoSuggestProps) => {
+  const [value, setValue] = useState("");
+  return (
+    <AutoSuggest
+      style={{ width: "100%" }}
+      inputStyle={{ width: "100%" }}
+      suggestions={args.suggestions}
+      value={value}
+      onChange={setValue}
+    />
+  );
+};
+
+FullWidth.args = {
   suggestions: {
     "@": ["Fouquets", "DunkinDonuts", "Walmart"],
     "#": ["DinnerWithFriends", "BreakfastAtWork", "Grosseries"]
