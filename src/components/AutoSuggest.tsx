@@ -6,7 +6,8 @@ import React, {
   useCallback,
   ReactNode,
   RefObject,
-  CSSProperties
+  CSSProperties,
+  FocusEvent
 } from "react";
 import { GetItemPropsOptions, useCombobox } from "downshift";
 
@@ -18,6 +19,9 @@ export interface AutoSuggestProps {
   suggestions: { [_: string]: string[] };
   value: string;
   onChange: (_: string) => void;
+  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
+  affixMode?: "floating" | "below";
   renderInput?: (props: {
     getInputProps: () => any;
     ref: RefObject<HTMLInputElement>;
@@ -36,17 +40,28 @@ export interface AutoSuggestProps {
   style?: CSSProperties;
   fontStyle?: CSSProperties;
   inputStyle?: CSSProperties;
+  affixStyle?: CSSProperties;
+  className?: string;
+  inputClassName?: string;
+  affixClassName?: string;
 }
 
 export const AutoSuggest = ({
   suggestions,
   value,
   onChange,
+  onFocus,
+  onBlur,
   renderInput,
   renderList,
+  affixMode,
   style,
   fontStyle,
-  inputStyle
+  inputStyle,
+  affixStyle,
+  className,
+  inputClassName,
+  affixClassName
 }: AutoSuggestProps) => {
   const inputEl = useRef<HTMLInputElement>(null);
 
@@ -60,7 +75,8 @@ export const AutoSuggest = ({
   );
 
   const getMenuStyles = (): CSSProperties => ({
-    flexShrink: 0
+    flexShrink: 0,
+    pointerEvents: "all"
   });
 
   const getItemStyles = (props?: GetItemStylesProps): CSSProperties => ({
@@ -198,7 +214,16 @@ export const AutoSuggest = ({
   return (
     <div
       {...getComboboxProps()}
-      style={{ position: "relative", display: "inline-flex", ...style }}
+      style={
+        className
+          ? {}
+          : {
+              position: "relative",
+              display: "inline-flex",
+              ...style
+            }
+      }
+      className={className}
     >
       {!!renderInput ? (
         renderInput({ getInputProps, ref: inputEl, value, onChange })
@@ -209,31 +234,41 @@ export const AutoSuggest = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             onChange(e.target.value)
           }
-          style={inputStyle}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          style={inputClassName ? {} : inputStyle}
+          className={inputClassName}
         />
       )}
       <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          position: "absolute",
-          zIndex: 1000,
-          width: "100%",
-          marginTop: "2rem"
-        }}
+        style={
+          affixClassName
+            ? {}
+            : {
+                display: "flex",
+                flexDirection: "row",
+                position: "absolute",
+                zIndex: 1000,
+                width: "100%",
+                marginTop: "2rem",
+                pointerEvents: "none",
+                ...affixStyle
+              }
+        }
+        className={affixClassName}
       >
-        <div
-          style={{
-            fontFamily: "inherit",
-            visibility: "hidden",
-            boxSizing: "border-box",
-            minWidth: 0,
-            marginRight: "-1rem",
-            ...fontStyle
-          }}
-        >
-          {value.slice(0, caretPosition)}
-        </div>
+        {affixMode === "floating" && (
+          <div
+            style={{
+              visibility: "hidden",
+              boxSizing: "border-box",
+              minWidth: 0,
+              ...fontStyle
+            }}
+          >
+            {value.slice(0, caretPosition)}
+          </div>
+        )}
         {!!renderList ? (
           renderList({
             getMenuProps: () => ({ ...getMenuProps(), style: getMenuStyles() }),
