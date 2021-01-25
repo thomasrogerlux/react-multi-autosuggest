@@ -5,11 +5,14 @@ import React, {
   useEffect,
   useCallback,
   ReactNode,
-  RefObject,
   CSSProperties,
   FocusEvent
 } from "react";
-import { GetItemPropsOptions, useCombobox } from "downshift";
+import {
+  GetInputPropsOptions,
+  GetItemPropsOptions,
+  useCombobox
+} from "downshift";
 
 interface GetItemStylesProps {
   highlighted?: boolean;
@@ -23,8 +26,7 @@ export interface AutoSuggestProps {
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   affixMode?: "floating" | "below";
   renderInput?: (props: {
-    getInputProps: () => any;
-    ref: RefObject<HTMLInputElement>;
+    getInputProps: (_: GetInputPropsOptions) => any;
     value: string;
     onChange: (_: string) => void;
   }) => ReactNode;
@@ -226,7 +228,12 @@ export const AutoSuggest = ({
       className={className}
     >
       {!!renderInput ? (
-        renderInput({ getInputProps, ref: inputEl, value, onChange })
+        renderInput({
+          getInputProps: (options: GetInputPropsOptions) =>
+            getInputProps({ ...options, ref: inputEl }),
+          value,
+          onChange
+        })
       ) : (
         <input
           {...getInputProps({ ref: inputEl })}
