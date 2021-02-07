@@ -104,7 +104,7 @@ export const AutoSuggest = ({
         return;
       }
 
-      const lastWordIndexMatch = /(?<=\s*)(\S+)$/gm.exec(
+      const lastWordIndexMatch = /(?!\s)(\S+)$/gm.exec(
         value.slice(0, caretPosition)
       );
       const lastWordIndex = lastWordIndexMatch ? lastWordIndexMatch.index : 0;
@@ -187,7 +187,7 @@ export const AutoSuggest = ({
     } else {
       const lastWordMatch = value
         .slice(0, caretPosition)
-        .match(/(?<=\s*)([\S]+)$/gm);
+        .match(/(?!\s)([\S]+)$/gm);
       const lastWord = lastWordMatch ? lastWordMatch[0] : "";
       const currentSuggestion = lastWord.slice(0, 1);
 
